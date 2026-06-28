@@ -5,96 +5,123 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Science World - Smart TV Lite OS</title>
     <style>
-        /* --- 1. SYSTEM RESET & PREMIUM LIGHT CORE --- */
+        /* --- 1. SYSTEM RESET & TV HARDWARE OPTIMIZATION --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            font-family: '-apple-system', BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            background: #f4f6f9; 
-            color: #1e293b;
+            background: #f8fafc; 
+            color: #0f172a;
             width: 100vw;
             height: 100vh;
             overflow: hidden;
             user-select: none;
+            transform: translate3d(0,0,0);
+            -webkit-transform: translate3d(0,0,0);
         }
 
-        /* --- 2. CINEMATIC INTRO (LIGHT MODE) --- */
+        .os-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 40px 60px;
+        }
+        .os-wrapper::-webkit-scrollbar { display: none; }
+
+        /* --- 2. NEW ANDROID TV STYLE BLOCK-WAVE LAUNCH ANIMATION --- */
         #splash-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #ffffff;
+            background: #000000; /* Cinematic Black for Boot effect */
             z-index: 100000;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .intro-title {
-            font-size: 5rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            background: linear-gradient(45deg, #0052d4, #4364f7, #6fb1fc);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: textShine 3s infinite linear, pulseGrow 2s ease-in-out forwards;
-            opacity: 0;
-            margin-bottom: 40px;
-        }
-
-        .spinner {
-            width: 65px;
-            height: 65px;
-            border: 5px solid rgba(67, 100, 247, 0.1);
-            border-top: 5px solid #4364f7;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            opacity: 0;
-            animation-delay: 1.2s;
-            animation-fill-mode: forwards;
-        }
-
-        @keyframes textShine {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
-        }
-
-        @keyframes pulseGrow {
-            0% { transform: scale(0.9); opacity: 0; filter: blur(5px); }
-            100% { transform: scale(1); opacity: 1; filter: blur(0px); }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); opacity: 1; }
-            100% { transform: rotate(360deg); opacity: 1; }
-        }
-
-        /* --- 3. MAIN DASHBOARD --- */
-        #app-dashboard {
+        /* Letters Layout Box */
+        .android-boot-container {
             display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-            padding: 30px 50px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease-out;
+            gap: 8px;
+            align-items: center;
         }
 
-        #app-dashboard.show {
-            opacity: 1;
-            transform: translateY(0);
+        /* Each letter acts like an individual animated TV block */
+        .boot-letter {
+            font-size: 5.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            color: transparent;
+            /* Premium Fluid Liquid Gradient Fill */
+            background: linear-gradient(135deg, #3b82f6, #60a5fa, #22c55e, #eab308);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            opacity: 0;
+            transform: scale(0.3) translateY(50px) rotateX(-90deg);
+            will-change: transform, opacity, background-position;
+            animation: 
+                androidBlockPop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards,
+                colorShiftGlow 4s ease infinite;
         }
+
+        /* Custom Space element between words */
+        .boot-space {
+            width: 30px;
+        }
+
+        /* Android Style Sequential Delay Map for precise block timing */
+        .boot-letter:nth-child(1) { animation-delay: 0.1s; }
+        .boot-letter:nth-child(2) { animation-delay: 0.2s; }
+        .boot-letter:nth-child(3) { animation-delay: 0.3s; }
+        .boot-letter:nth-child(4) { animation-delay: 0.4s; }
+        .boot-letter:nth-child(5) { animation-delay: 0.5s; }
+        .boot-letter:nth-child(6) { animation-delay: 0.6s; }
+        .boot-letter:nth-child(7) { animation-delay: 0.7s; }
+        /* Space index skipped dynamically */
+        .boot-letter:nth-child(9) { animation-delay: 0.8s; }
+        .boot-letter:nth-child(10) { animation-delay: 0.9s; }
+        .boot-letter:nth-child(11) { animation-delay: 1.0s; }
+        .boot-letter:nth-child(12) { animation-delay: 1.1s; }
+        .boot-letter:nth-child(13) { animation-delay: 1.2s; }
+
+        /* Animation 1: Android Block Entry Trigger */
+        @keyframes androidBlockPop {
+            0% {
+                opacity: 0;
+                transform: scale(0.3) translateY(60px) rotateX(-90deg);
+                filter: blur(8px);
+            }
+            50% {
+                opacity: 0.8;
+                transform: scale(1.1) translateY(-10px) rotateX(15deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0) rotateX(0deg);
+                filter: drop-shadow(0 15px 30px rgba(59, 130, 246, 0.35));
+            }
+        }
+
+        /* Animation 2: Smooth Color Moving Fill */
+        @keyframes colorShiftGlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- 3. HIGH-DESIGN DASHBOARD --- */
+        #app-dashboard { opacity: 0; transition: opacity 0.4s ease; }
+        #app-dashboard.show { opacity: 1; }
 
         .header {
             display: flex;
@@ -104,266 +131,215 @@
         }
 
         .header h1 {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 800;
+            letter-spacing: -0.5px;
             color: #0f172a;
         }
 
-        .header h1 span {
-            color: #4364f7;
-        }
+        .header h1 span { font-weight: 400; color: #64748b; }
 
         .clock {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #475569;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #0f172a;
             background: #ffffff;
-            padding: 6px 18px;
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         }
 
-        /* --- 4. SMART TV HERO BANNER --- */
+        /* --- 4. CINEMATIC GLASS HERO BANNER --- */
         .tv-banner {
             width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, #4364f7, #6fb1fc);
+            height: 130px;
+            background: linear-gradient(115deg, #1e3a8a, #3b82f6);
             border-radius: 24px;
-            margin-bottom: 30px;
-            padding: 30px 40px;
+            margin-bottom: 35px;
+            padding: 30px 45px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            box-shadow: 0 10px 25px rgba(67, 100, 247, 0.25);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15);
         }
 
-        .tv-banner::after {
-            content: '';
-            position: absolute;
-            right: -50px;
-            bottom: -50px;
-            width: 250px;
-            height: 250px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-        }
+        .tv-banner h2 { font-size: 1.8rem; font-weight: 800; color: #ffffff; margin-bottom: 4px; }
+        .tv-banner p { font-size: 1rem; color: #93c5fd; font-weight: 500; }
 
-        .tv-banner h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .tv-banner p {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* --- 5. APP ROWS ARCHITECTURE --- */
-        .section-container {
-            margin-bottom: 25px;
-        }
+        /* --- 5. GRID & ROW CONTAINER DESIGN --- */
+        .section-container { margin-bottom: 35px; }
 
         .row-title {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 700;
-            color: #334155;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .row-title::before {
-            content: '';
-            display: inline-block;
-            width: 5px;
-            height: 18px;
-            background: #4364f7;
-            border-radius: 3px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 14px;
         }
 
         .apps-row {
             display: flex;
-            gap: 20px;
+            gap: 24px;
             overflow-x: auto;
             padding: 10px 5px;
-            scroll-behavior: smooth;
-            width: 100%;
         }
+        .apps-row::-webkit-scrollbar { display: none; }
 
-        .apps-row::-webkit-scrollbar {
-            display: none; 
-        }
-
-        /* --- 6. CLEAN LIGHT APP CARDS --- */
+        /* --- 6. FUTURISTIC LITE APP CARDS --- */
         .app-card {
-            flex: 0 0 190px;
+            flex: 0 0 160px;
             background: #ffffff;
-            border: 2px solid #e2e8f0;
-            border-radius: 20px;
-            padding: 20px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            padding: 24px 16px;
             text-align: center;
             cursor: pointer;
             outline: none;
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            backface-visibility: hidden;
+            will-change: transform, box-shadow, border-color;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         }
 
         .app-card img {
-            width: 75px;
-            height: 75px;
+            width: 60px;
+            height: 60px;
             object-fit: contain;
-            margin-bottom: 15px;
-            border-radius: 14px;
+            margin: 0 auto 14px auto;
+            border-radius: 50%;
+            display: block;
         }
 
         .app-card p {
-            font-size: 1rem;
-            font-weight: 600;
+            font-size: 0.88rem;
+            font-weight: 700;
             color: #334155;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
-        /* LIGHT MODE TV FOCUS GLOW EFFECTS */
+        /* PREMIUM GLOW TV FOCUS EFFECT */
         .app-card:focus {
-            transform: scale(1.1);
-            background: #ffffff;
-            border-color: #4364f7;
-            box-shadow: 0 10px 25px rgba(67, 100, 247, 0.2), 0 4px 10px rgba(0,0,0,0.05);
+            transform: translateY(-6px) scale(1.05);
+            border-color: #3b82f6;
+            box-shadow: 0 20px 25px -5px rgba(59, 130, 246, 0.15);
         }
+        .app-card:focus p { color: #1e40af; }
 
-        .app-card:focus p {
-            color: #4364f7;
-        }
-
-        /* --- 7. APP PLAYER SCREEN --- */
-        #app-viewer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #000000;
-            z-index: 99999;
-            display: flex;
-            flex-direction: column;
-        }
-
-        #back-btn {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            z-index: 100000;
-            background: #ff3344;
-            color: white;
-            border: 2px solid transparent;
-            padding: 12px 24px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            border-radius: 30px;
-            cursor: pointer;
-            outline: none;
-            transition: all 0.2s;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-
-        #back-btn:focus {
-            background: #ff0017;
-            border-color: #ffffff;
-            transform: scale(1.08);
-            box-shadow: 0 0 25px rgba(255, 51, 68, 0.6);
-        }
-
-        #tv-iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #ffffff;
-        }
-
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
+    <!-- ANDROID TV BOOT TYPE SPLASH WRAPPER -->
     <div id="splash-screen">
-        <div class="intro-title">Science World</div>
-        <div class="spinner"></div>
+        <div class="android-boot-container">
+            <!-- SCIENCE -->
+            <div class="boot-letter">S</div>
+            <div class="boot-letter">c</div>
+            <div class="boot-letter">i</div>
+            <div class="boot-letter">e</div>
+            <div class="boot-letter">n</div>
+            <div class="boot-letter">c</div>
+            <div class="boot-letter">e</div>
+            <!-- BREAK SPACE -->
+            <div class="boot-space"></div>
+            <!-- WORLD -->
+            <div class="boot-letter">W</div>
+            <div class="boot-letter">o</div>
+            <div class="boot-letter">r</div>
+            <div class="boot-letter">l</div>
+            <div class="boot-letter">d</div>
+        </div>
     </div>
 
-    <div id="app-dashboard">
-        <div class="header">
-            <h1>Science World <span>Store</span></h1>
-            <div class="clock" id="tv-clock">00:00 PM</div>
-        </div>
+    <div class="os-wrapper">
+        <div id="app-dashboard">
+            <div class="header">
+                <h1>Science World <span>Smart Hub</span></h1>
+                <div class="clock" id="tv-clock">00:00 PM</div>
+            </div>
 
-        <div class="tv-banner">
-            <h2>Welcome to Science World OS</h2>
-            <p>Experience super-fast, lightweight versions of your favorite platforms tailored for Smart TV screens.</p>
-        </div>
+            <div class="tv-banner">
+                <h2>Ecosystem Controller</h2>
+                <p>Fluid high-performance workspace tailored specifically for lag-free TV execution.</p>
+            </div>
 
-        <div class="section-container">
-            <div class="row-title">Special Lite Apps</div>
-            <div id="special-apps-container" class="apps-row">
-                
-                <div class="app-card" tabindex="0" data-url="https://m.youtube.com">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube Lite">
-                    <p>YouTube Lite</p>
+            <div class="section-container">
+                <div class="row-title">Science World & Core Channels</div>
+                <div class="apps-row">
+                    <div class="app-card" tabindex="0" data-url="https://joyful-marshmallow-896e85.netlify.app/">
+                        <img src="https://i.ibb.co/bRVN46w/rkp-logo.png" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/c/c3/Circle-icons-science.svg'" alt="Science World">
+                        <p>Science World</p>
+                    </div>
+                    <div class="app-card" tabindex="0" data-url="https://m.youtube.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YouTube Lite">
+                        <p>YouTube Lite</p>
+                    </div>
+                    <div class="app-card" tabindex="0" data-url="https://music.youtube.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Youtube_Music_icon.svg" alt="YT Music">
+                        <p>YT Music Lite</p>
+                    </div>
+                    <div class="app-card" tabindex="0" data-url="https://web.whatsapp.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+                        <p>WhatsApp Lite</p>
+                    </div>
+                    <div class="app-card" tabindex="0" data-url="https://mtouch.instagram.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram">
+                        <p>Instagram Lite</p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="app-card" tabindex="0" data-url="https://music.youtube.com">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Youtube_Music_icon.svg" alt="YT Music Lite">
-                    <p>YT Music Lite</p>
+            <div class="section-container">
+                <div class="row-title">Entertainment & Utilities</div>
+                <div class="apps-row">
+                    <div class="app-card" tabindex="0" data-url="https://m.hotstar.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_Hotstar_logo.svg" alt="JioHotstar Lite" style="background: #0c111b; padding: 5px;">
+                        <p>JioHotstar</p>
+                    </div>
+                    <div class="app-card" tabindex="0" data-url="https://www.jiocinema.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/JioCinema_Logo.svg" alt="JioCinema">
+                        <p>JioCinema</p>
+                    </div>
+                    <div class="app-card" tabindex="0" data-url="https://www.netflix.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix">
+                        <p>Netflix Web</p>
+                    </div>
+                    <div class="app-card" tabindex="0" data-url="https://www.primevideo.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Amazon_Prime_Video_logo.svg" alt="Prime Video" style="background:#0f172a; padding:4px;">
+                        <p>Prime Video</p>
+                    </div>
+                    <div class="app-card" tabindex="0" data-url="https://www.zee5.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/ZEE5_logo.svg" alt="Zee5">
+                        <p>ZEE5 Lite</p>
+                    </div>
+                    <div class="app-card" tabindex="0" data-url="https://www.google.com">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+                        <p>Google Search</p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="app-card" tabindex="0" data-url="https://web.whatsapp.com">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Lite">
-                    <p>WhatsApp Lite</p>
-                </div>
-
-                <div class="app-card" tabindex="0" data-url="https://www.instagram.com/?variant=pastat">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="Instagram Lite">
-                    <p>Instagram Lite</p>
-                </div>
-
-                <div class="app-card" tabindex="0" data-url="https://www.airtelxstream.in">
-                    <img src="https://assets.airtel.in/static-assets/new-home/img/airtel-red.svg" alt="Xstream Lite" style="background: #000; padding: 5px;">
-                    <p>Xstream Lite</p>
-                </div>
-
-                <div class="app-card" tabindex="0" data-url="https://www.hotstar.com/in">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_Hotstar_logo.svg" alt="JioHotstar Lite" style="background: #0c111b; padding: 5px;">
-                    <p>JioHotstar Lite</p>
-                </div>
-
+            <div class="section-container">
+                <div class="row-title">Dynamic Cloud Pipelines</div>
+                <div id="more-apps-container" class="apps-row">
+                    </div>
             </div>
         </div>
-
-        <div class="section-container">
-            <div class="row-title">Cloud Dynamic Apps</div>
-            <div id="more-apps-container" class="apps-row">
-                </div>
-        </div>
-    </div>
-
-    <div id="app-viewer" class="hidden">
-        <button id="back-btn" tabindex="0">← BACK TO STORE</button>
-        <iframe id="tv-iframe" src="" allowfullscreen></iframe>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
         import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
-        // INTEGRATED REAL FIREBASE CREDENTIALS
         const firebaseConfig = {
             apiKey: "AIzaSyBKqK4WHdJ8N3Kz80gBGCFTIens1YfpN4g",
             authDomain: "rk-physics-315e6.firebaseapp.com",
@@ -379,11 +355,7 @@
         const moreAppsContainer = document.getElementById('more-apps-container');
         const splashScreen = document.getElementById('splash-screen');
         const dashboard = document.getElementById('app-dashboard');
-        const viewer = document.getElementById('app-viewer');
-        const iframe = document.getElementById('tv-iframe');
-        const backBtn = document.getElementById('back-btn');
 
-        // TV OS Clock Logic
         function updateClock() {
             const now = new Date();
             document.getElementById('tv-clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
@@ -391,96 +363,65 @@
         setInterval(updateClock, 1000);
         updateClock();
 
-        // INTRO TIMING CONTROL
         window.addEventListener('DOMContentLoaded', () => {
+            const indexToken = localStorage.getItem('tv_hub_token');
+            // Timeout optimized to 2.6s so that the full letter-by-letter waves complete elegantly
             setTimeout(() => {
                 splashScreen.style.opacity = '0';
                 setTimeout(() => {
                     splashScreen.classList.add('hidden');
                     dashboard.classList.add('show');
                     
-                    // Auto Focus on YouTube Lite card for quick start
-                    const firstApp = document.querySelector('.app-card');
-                    if (firstApp) firstApp.focus();
-                }, 800);
-            }, 3000); 
+                    const cards = document.querySelectorAll('.app-card');
+                    if(indexToken && cards[indexToken]) {
+                        cards[indexToken].focus();
+                        localStorage.removeItem('tv_hub_token');
+                    } else if (cards[0]) {
+                        cards[0].focus();
+                    }
+                }, 300);
+            }, 2600); 
         });
 
-        // Firebase Cloud Integration
         async function fetchFirebaseApps() {
             try {
                 const querySnapshot = await getDocs(collection(db, "apps"));
-                
-                if (querySnapshot.empty) {
-                    renderCard("Wikipedia Lite", "https://en.m.wikipedia.org", "https://upload.wikimedia.org/wikipedia/commons/6/63/Wikipedia-logo-v2.svg");
-                } else {
+                if (!querySnapshot.empty) {
                     querySnapshot.forEach((doc) => {
                         const appData = doc.data();
                         renderCard(appData.name, appData.url, appData.icon);
                     });
                 }
+                attachCoreTriggers();
             } catch (err) {
-                console.error("Firebase load issue: ", err);
+                console.error(err);
+                attachCoreTriggers();
             }
         }
 
-        // Render Cards inside Cloud row
         function renderCard(name, url, icon) {
             const card = document.createElement('div');
             card.className = 'app-card';
             card.tabIndex = 0;
-
-            card.innerHTML = `
-                <img src="${icon}" alt="${name}" onerror="this.src='https://via.placeholder.com/100?text=App'">
-                <p>${name}</p>
-            `;
-
-            setupCardEvents(card, url);
+            card.setAttribute('data-url', url);
+            card.innerHTML = `<img src="${icon}" onerror="this.src='https://via.placeholder.com/100?text=App'"><p>${name}</p>`;
             moreAppsContainer.appendChild(card);
         }
 
-        function setupCardEvents(card, url) {
-            card.addEventListener('click', () => bootApp(url));
-            card.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') bootApp(url);
+        function executeLaunch(url, index) {
+            localStorage.setItem('tv_hub_token', index);
+            window.location.href = url; 
+        }
+
+        function attachCoreTriggers() {
+            document.querySelectorAll('.app-card').forEach((card, index) => {
+                const targetUrl = card.getAttribute('data-url');
+                card.addEventListener('click', () => executeLaunch(targetUrl, index));
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') executeLaunch(targetUrl, index);
+                });
             });
         }
-
-        // Attach event listener to hardcoded Special Apps
-        document.querySelectorAll('.app-card').forEach(card => {
-            const url = card.getAttribute('data-url');
-            if (url) setupCardEvents(card, url);
-        });
-
-        // Boot & Shut Web Apps
-        let lastFocusedElement;
-        function bootApp(url) {
-            lastFocusedElement = document.activeElement;
-            iframe.src = url;
-            dashboard.classList.add('hidden');
-            viewer.classList.remove('hidden');
-            backBtn.focus();
-        }
-
-        function closeAppViewer() {
-            iframe.src = "";
-            viewer.classList.add('hidden');
-            dashboard.classList.remove('hidden');
-            if (lastFocusedElement) lastFocusedElement.focus();
-        }
-
-        backBtn.addEventListener('click', closeAppViewer);
-        backBtn.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') closeAppViewer();
-        });
-
-        // Smart TV Remote Back Key Fix
-        window.addEventListener('keydown', (e) => {
-            if ((e.key === 'Backspace' || e.key === 'Escape') && !viewer.classList.contains('hidden')) {
-                e.preventDefault();
-                closeAppViewer();
-            }
-        });
 
         fetchFirebaseApps();
     </script>
